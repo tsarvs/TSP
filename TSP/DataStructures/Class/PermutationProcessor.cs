@@ -36,6 +36,7 @@ namespace TSP.Class
 
         private void SwitchVertices(ref int v1, ref int v2)
         {
+            //switch two vertices on the list of paths
             if (v1 == v2) return;
 
             var vTemp = v1;
@@ -45,9 +46,10 @@ namespace TSP.Class
 
         public void Permutation(int listSize)
         {
-            //add method generate generic list
+            //generate generic path list
             int[] list = GenerateGenericPath(listSize);
 
+            //start the real permutation loop
             Permutation(list, 0, list.Length - 1);
         }
 
@@ -68,8 +70,10 @@ namespace TSP.Class
             }
             else
             {
+                //calculate distance
                 double pathDistance = _pathProcessor.Process(list, _vertices);
 
+                //save shortest path
                 if (this.ShortestPath == null)
                 {
                     this.ShortestDistance = pathDistance;

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Reflection;
 using System.Threading.Tasks;
 using TSP.Interface;
 using TSP.Struct;
@@ -31,36 +32,45 @@ namespace TSP.Class
         {
             _vertices.Clear();
 
-            using (StreamReader reader = new StreamReader(fileDir))
+            var assembly = Assembly.GetExecutingAssembly();
+            var resource = "TSPConsole." + fileDir;
+
+            using (Stream stream = assembly.GetManifestResourceStream(resource))
             {
-                string line;
-
-                do
+                using (StreamReader reader = new StreamReader(fileDir))
                 {
-                    line = reader.ReadLine();
-                } while (line != "NODE_COORD_SECTION");
+                    string line;
 
-                string x, y;
-                
-                do
-                {
-                    Vertex tempVertex = new Vertex();
+                    //keep reading the file until you get to the section with the coordinates
+                    do
+                    {
+                        line = reader.ReadLine();
+                    } while (line != "NODE_COORD_SECTION");
 
-                    line = reader.ReadLine();
+                    string x, y;
 
-                    //get the substring of coordinates
-                    line = line.Substring(line.IndexOf(" ") + 1);
+                    //read coordinates until end of file
+                    do
+                    {
+                        Vertex tempVertex = new Vertex();
 
-                    x = line.Substring(0, line.IndexOf(" "));
-                    y = line.Substring(line.IndexOf(" ") + 1);
+                        line = reader.ReadLine();
 
-                    //turn to a vertex
-                    tempVertex.x = Convert.ToDouble(x);
-                    tempVertex.y = Convert.ToDouble(y);
+                        //get the substring of coordinates
+                        line = line.Substring(line.IndexOf(" ") + 1);
 
-                    this._vertices.Add(tempVertex);
+                        x = line.Substring(0, line.IndexOf(" "));
+                        y = line.Substring(line.IndexOf(" ") + 1);
 
-                } while (!reader.EndOfStream);
+                        //turn to a vertex
+                        tempVertex.x = Convert.ToDouble(x);
+                        tempVertex.y = Convert.ToDouble(y);
+
+                        //add to list of vertices
+                        this._vertices.Add(tempVertex);
+
+                    } while (!reader.EndOfStream);
+                }
             }
 
             return _vertices;

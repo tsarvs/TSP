@@ -5,19 +5,6 @@ VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TSPConsole", "TSPConsole\TSPConsole.csproj", "{79EF2330-81D6-497E-8C75-683FADF6E333}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TSPFiles", "TSPFiles", "{CB8E576E-3678-4452-A963-5DA917D13CAD}"
-	ProjectSection(SolutionItems) = preProject
-		\\SCRUNGOCLOUD\tom\school\2018\Fall\CECS 545\Project1\Random10.tsp = \\SCRUNGOCLOUD\tom\school\2018\Fall\CECS 545\Project1\Random10.tsp
-		\\SCRUNGOCLOUD\tom\school\2018\Fall\CECS 545\Project1\Random11.tsp = \\SCRUNGOCLOUD\tom\school\2018\Fall\CECS 545\Project1\Random11.tsp
-		\\SCRUNGOCLOUD\tom\school\2018\Fall\CECS 545\Project1\Random12.tsp = \\SCRUNGOCLOUD\tom\school\2018\Fall\CECS 545\Project1\Random12.tsp
-		\\SCRUNGOCLOUD\tom\school\2018\Fall\CECS 545\Project1\Random4.tsp = \\SCRUNGOCLOUD\tom\school\2018\Fall\CECS 545\Project1\Random4.tsp
-		\\SCRUNGOCLOUD\tom\school\2018\Fall\CECS 545\Project1\Random5.tsp = \\SCRUNGOCLOUD\tom\school\2018\Fall\CECS 545\Project1\Random5.tsp
-		\\SCRUNGOCLOUD\tom\school\2018\Fall\CECS 545\Project1\Random6.tsp = \\SCRUNGOCLOUD\tom\school\2018\Fall\CECS 545\Project1\Random6.tsp
-		\\SCRUNGOCLOUD\tom\school\2018\Fall\CECS 545\Project1\Random7.tsp = \\SCRUNGOCLOUD\tom\school\2018\Fall\CECS 545\Project1\Random7.tsp
-		\\SCRUNGOCLOUD\tom\school\2018\Fall\CECS 545\Project1\Random8.tsp = \\SCRUNGOCLOUD\tom\school\2018\Fall\CECS 545\Project1\Random8.tsp
-		\\SCRUNGOCLOUD\tom\school\2018\Fall\CECS 545\Project1\Random9.tsp = \\SCRUNGOCLOUD\tom\school\2018\Fall\CECS 545\Project1\Random9.tsp
-	EndProjectSection
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
