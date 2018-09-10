@@ -63,6 +63,16 @@ namespace TSPConsole.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
+        public static byte[] _11PointDFSBFS {
+            get {
+                object obj = ResourceManager.GetObject("_11PointDFSBFS", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
         public static byte[] Random10 {
             get {
                 object obj = ResourceManager.GetObject("Random10", resourceCulture);

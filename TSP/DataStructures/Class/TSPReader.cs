@@ -75,9 +75,6 @@ namespace TSP.Class
 
             return _vertices;
         }
-
-
-
         #endregion
     }
 }
