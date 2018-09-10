@@ -19,6 +19,12 @@ namespace TSP.Class
 
         private List<Vertex> _vertices;
 
+        private IPathProcessor _pathProcessor;
+
+        public double ShortestDistance;
+
+        public int[] ShortestPath;
+
         #endregion
 
         #region Constructor
@@ -28,6 +34,10 @@ namespace TSP.Class
             _fileReader = new TSPReader();
             
             _vertices = new List<Vertex>();
+
+            _pathProcessor = new PathProcessor();
+
+            ShortestDistance = double.MaxValue;
         }
 
         #endregion
@@ -44,15 +54,47 @@ namespace TSP.Class
             _vertices = _fileReader.ReadTSP("TSPFile/11PointDFSBFS.tsp");
             _treeProcessor = new TreeBuilder(_vertices);
 
-            BreadthFirstSearch();
+            BreadthFirstSearch(_treeProcessor.TreeHeadNode);
 
             stopwatch.Stop();
             var calculationTime = stopwatch.ElapsedMilliseconds;
         }
 
-        private void BreadthFirstSearch()
+        private void BreadthFirstSearch(Node headNode)
         {
+            Queue<Node> nodeQueue = new Queue<Node>();
 
+            nodeQueue.Enqueue(headNode);
+
+            while (nodeQueue.Count > 0)
+            {
+                Node tempNode = nodeQueue.Dequeue();
+
+                if (tempNode.ChildNodes.Count != 0)
+                {
+                    foreach (var childNode in tempNode.ChildNodes)
+                    {
+                        nodeQueue.Enqueue(childNode);
+                    }
+                }
+                else
+                {
+                    int[] pathInts = tempNode.NodePathListToArray(tempNode.GetPath(), _vertices);
+                    double distance = _pathProcessor.Process(pathInts, _vertices);
+
+                    UpdateShortestPath(pathInts, distance);
+                }
+
+            }
+        }
+
+        private void UpdateShortestPath(int[] path, double distance)
+        {
+            if (distance < ShortestDistance)
+            {
+                ShortestDistance = distance;
+                ShortestPath = path;
+            }
         }
 
         #endregion

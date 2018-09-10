@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using TSP.Interface;
 using TSP.Struct;
 
@@ -23,7 +19,7 @@ namespace TSP.Class
 
         private List<Vertex> _vertices;
 
-        private IPathProcessor _pathProcessor;
+        private readonly IPathProcessor _pathProcessor;
 
         #endregion
 
@@ -51,47 +47,36 @@ namespace TSP.Class
 
             _vertices = _fileReader.ReadTSP("TSPFile/11PointDFSBFS.tsp");
             _treeProcessor = new TreeBuilder(_vertices);
-
-            SearchAndSaveShortestPath();
+            DepthFirstSearch(_treeProcessor.TreeHeadNode, new List<int>());
 
             stopwatch.Stop();
             var calculationTime = stopwatch.ElapsedMilliseconds;
         }
 
-        private double DepthFirstSearch(Node parentNode, double distance, List<int> path)
+        private void DepthFirstSearch(Node parentNode, List<int> path)
         {
             if (parentNode.ChildNodes.Count != 0)
-            {
                 foreach (var childNode in parentNode.ChildNodes)
                 {
-                    distance += _pathProcessor.CalculateDistance(parentNode.Vertex, childNode.Vertex);
-                    distance = DepthFirstSearch(childNode, distance, path);
+                    path.Add(GetVertexIndex(parentNode.Vertex));
+
+                    DepthFirstSearch(childNode, path);
                 }
-            }
             else
-            {
-                double tempDistance = distance;
-                distance = 0;
-
-                //calculate once more to close the path
-                //check to see if its the shortest path
-                
-
-                return tempDistance;
-            }
-
-            return distance;
+                _pathProcessor.Process(path.ToArray(), _vertices);
         }
 
-        private void SearchAndSaveShortestPath()
+        private int GetVertexIndex(Vertex searchVertex) 
         {
-            double shortestDistance = Double.MaxValue;
-            List<int> path = new List<int>();
+            var i = 0;
 
-            double returned = DepthFirstSearch(_treeProcessor.TreeHeadNode, 0, path);
+            do
+            {
+                i++;
+            } while (!_vertices[i].Equals(searchVertex) && i < _vertices.Count - 1);
 
+            return i;
         }
-        
 
         #endregion
     }

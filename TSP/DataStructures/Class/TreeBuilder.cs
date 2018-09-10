@@ -21,9 +21,7 @@ namespace TSP.Class
 
             if (this.vertices.Count != 0)
             {
-                //set head of tree = first vertex
-                TreeHeadNode.Vertex = vertices[0];
-                TreeHeadNode.ChildNodes = new List<Node>();
+                TreeHeadNode = new Node(vertices[0]);
 
                 Permutation(vertices.Count);
             }
@@ -104,11 +102,8 @@ namespace TSP.Class
                 //tempNode to the added node
                 if (isNewVertex)
                 {
-                    var addedNode = new Node
-                    {
-                        Vertex = vertices[vertex - 1],
-                        ChildNodes = new List<Node>()
-                    };
+                    var addedNode = new Node(vertices[vertex - 1]);
+                    addedNode.ParentNode = tempNode;
 
                     tempNode.ChildNodes.Add(addedNode);
 
