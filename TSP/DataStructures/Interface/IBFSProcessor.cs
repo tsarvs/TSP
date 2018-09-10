@@ -8,6 +8,13 @@ namespace TSP.Interface
 {
     public interface IBFSProcessor
     {
+
+        double ShortestDistance { get; set; }
+
+        int[] ShortestPath { get; set; }
+
+        long CalculationTime { get; set; }
+
         void ProcessFile(byte[] file);
     }
 }

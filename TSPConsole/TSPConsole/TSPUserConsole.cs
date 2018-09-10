@@ -148,6 +148,11 @@ namespace TSPConsole
                     IBFSProcessor bfs = new BFSProcessor();
 
                     bfs.ProcessFile(Resources._11PointDFSBFS);
+
+                    Console.WriteLine("\nShortest Path: [" + string.Join(",", bfs.ShortestPath) + "]");
+                    Console.WriteLine("Shortest Distance: " + bfs.ShortestDistance);
+                    Console.WriteLine("Calculation Time (ms): " + _processor.CalculationTime);
+                    Console.ReadLine();
                     break;
                 case "2":
                     IDFSProcessor dfs = new DFSProcessor();
@@ -161,8 +166,7 @@ namespace TSPConsole
                     Console.WriteLine("You have provided incorrect input. Please try again.");
                     break;
             }
-
-            Console.WriteLine();
+            
             return input;
         }
 

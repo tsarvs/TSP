@@ -41,7 +41,7 @@ namespace TSP.Class
 
             foreach (var node in nodes)
             {
-                int i = 0;
+                int i = 1;
                 //search through vertex list to find index of node
                 foreach (var vertex in vertices)
                 {
@@ -61,10 +61,11 @@ namespace TSP.Class
         public List<Node> GetPath()
         {
             List<Node> pathList = new List<Node>();
+            pathList.Add(this);
 
             if (ParentNode != null)
             {
-                pathList = GetPath(pathList);
+                pathList = ParentNode.GetPath(pathList);
             }
 
             return pathList;
@@ -72,9 +73,10 @@ namespace TSP.Class
 
         private List<Node> GetPath(List<Node> currentPath)
         {
-            if(ParentNode != null)
+            currentPath.Add(this);
+
+            if (ParentNode != null)
             {
-                currentPath.Add(this);
                 ParentNode.GetPath(currentPath);
             }
 

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 using TSP.Interface;
@@ -21,9 +22,11 @@ namespace TSP.Class
 
         private IPathProcessor _pathProcessor;
 
-        public double ShortestDistance;
+        public double ShortestDistance { get; set; }
 
-        public int[] ShortestPath;
+        public int[] ShortestPath { get; set; }
+
+        public long CalculationTime { get; set; }
 
         #endregion
 
@@ -57,7 +60,7 @@ namespace TSP.Class
             BreadthFirstSearch(_treeProcessor.TreeHeadNode);
 
             stopwatch.Stop();
-            var calculationTime = stopwatch.ElapsedMilliseconds;
+            CalculationTime = stopwatch.ElapsedMilliseconds;
         }
 
         private void BreadthFirstSearch(Node headNode)
