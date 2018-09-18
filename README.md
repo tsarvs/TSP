@@ -1,2 +1,4 @@
 # TSP
-Using Heap's Permutation Algorithm to generate/brute-force all permutations of paths that connect a list of vertices.
+Lab 1 - Brute Force Approach
+Lab 2 - Breadth First Search/Depth First Search Approach
+Lab 3 - Greedy Approach (closest edge)
