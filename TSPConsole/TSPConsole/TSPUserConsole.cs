@@ -1,6 +1,9 @@
 ﻿using System;
+using System.IO;
+using System.Reflection;
 using TSP.Class;
 using TSP.Interface;
+using TSPConsole.Properties;
 
 namespace TSPConsole
 {
@@ -39,6 +42,34 @@ namespace TSPConsole
             Console.Clear();
 
             Console.WriteLine("Welcome to the TSP Processor");
+            Console.WriteLine("1) Project 1");
+            Console.WriteLine("2) Project 2");
+            Console.WriteLine("0) Exit");
+
+            string input = Console.ReadLine();
+
+            switch (input)
+            {
+                case "1":
+                    input = Lab1Menu();
+                    break;
+                case "2":
+                    input = Lab2Menu();
+                    break;
+                case "0":
+                    Console.WriteLine("Thank you for using the TSP Processor");
+                    break;
+                default:
+                    Console.WriteLine("You have provided incorrect input. Please try again.");
+                    break;
+            }
+
+            return input;
+        }
+
+        private string Lab1Menu()
+        {
+            Console.WriteLine("\nProject 1");
             Console.WriteLine("1) Run Random4.tsp");
             Console.WriteLine("2) Run Random5.tsp");
             Console.WriteLine("3) Run Random6.tsp");
@@ -52,7 +83,7 @@ namespace TSPConsole
 
             Console.WriteLine("Chose a TSP file to process: ");
             string input = Console.ReadLine();
-
+            
             switch (input)
             {
                 case "1":
@@ -77,7 +108,7 @@ namespace TSPConsole
                     BruteForceTSP("TSPFile/Random10.tsp");
                     break;
                 case "8":
-                    BruteForceTSP("TSPFile/Random11.tsp");
+                    BruteForceTSP("TSPFile/11PointDFSBFS.tsp");
                     break;
                 case "9":
                     BruteForceTSP("TSPFile/Random12.tsp");
@@ -103,6 +134,51 @@ namespace TSPConsole
 
             Console.ReadKey();
         }
+
+        private string Lab2Menu()
+        {
+            Console.WriteLine("\nProject 2");
+            Console.WriteLine("1) Breadth First Search");
+            Console.WriteLine("2) Depth First Search");
+            Console.WriteLine("0) Exit");
+
+            Console.WriteLine("Chose a search method: ");
+            string input = Console.ReadLine();
+
+            switch (input)
+            {
+                case "1":
+                    IBFSProcessor bfs = new BFSProcessor();
+
+                    bfs.ProcessFile(Resources._11PointDFSBFS);
+
+                    Console.WriteLine("\nShortest Path: [" + string.Join(",", bfs.ShortestPath) + "]");
+                    Console.WriteLine("Shortest Distance: " + bfs.ShortestDistance);
+                    Console.WriteLine("Calculation Time (ms): " + bfs.CalculationTime);
+                    Console.ReadLine();
+                    break;
+                case "2":
+                    IDFSProcessor dfs = new DFSProcessor();
+
+                    dfs.ProcessFile(Resources._11PointDFSBFS);
+
+                    Console.WriteLine("\nShortest Path: [" + string.Join(",", dfs.ShortestPath) + "]");
+                    Console.WriteLine("Shortest Distance: " + dfs.ShortestDist);
+                    Console.WriteLine("Calculation Time (ms): " + dfs.CalculationTime);
+                    Console.ReadLine();
+                    break;
+                case "0":
+                    Console.WriteLine("Thank you for using the TSP Processor!");
+                    break;
+                default:
+                    Console.WriteLine("You have provided incorrect input. Please try again.");
+                    break;
+            }
+            
+            return input;
+        }
+
+
 
         #endregion
     }

@@ -34,7 +34,7 @@ namespace TSP.Class
         
         #region Methods
 
-        private void SwitchVertices(ref int v1, ref int v2)
+        public void SwitchVertices(ref int v1, ref int v2)
         {
             //switch two vertices on the list of paths
             if (v1 == v2) return;
@@ -74,16 +74,7 @@ namespace TSP.Class
                 double pathDistance = _pathProcessor.Process(list, _vertices);
 
                 //save shortest path
-                if (this.ShortestPath == null)
-                {
-                    this.ShortestDistance = pathDistance;
-                    this.ShortestPath = (int[])list.Clone();
-                }
-                else if (this.ShortestDistance > pathDistance)
-                {
-                    this.ShortestDistance = pathDistance;
-                    this.ShortestPath = (int[])list.Clone();
-                }
+                UpdateShortestPath(list, pathDistance);
             }
         }
 
@@ -103,6 +94,20 @@ namespace TSP.Class
             }
 
             return genericList;
+        }
+
+        private void UpdateShortestPath(int[] list, double distance)
+        {
+            if (this.ShortestPath == null)
+            {
+                this.ShortestDistance = distance;
+                this.ShortestPath = (int[])list.Clone();
+            }
+            else if (this.ShortestDistance > distance)
+            {
+                this.ShortestDistance = distance;
+                this.ShortestPath = (int[])list.Clone();
+            }
         }
 
         #endregion

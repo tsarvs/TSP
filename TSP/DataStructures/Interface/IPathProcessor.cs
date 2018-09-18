@@ -10,5 +10,7 @@ namespace TSP.Interface
     public interface IPathProcessor
     {
         double Process(int[] pathArray, List<Vertex> vertices);
+
+        double CalculateDistance(Vertex pointA, Vertex pointB);
     }
 }

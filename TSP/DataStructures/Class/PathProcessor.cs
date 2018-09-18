@@ -31,6 +31,7 @@ namespace TSP.Class
             
             //finish path loop and calculate distance from last point back to the first
             distance += CalculateDistance(vertices[pathArray[i] - 1], vertices[pathArray[0] - 1]);
+            
 
             return distance;
         }

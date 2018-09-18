@@ -7,8 +7,8 @@
     <ProjectGuid>{62836A0A-EDF8-4037-BF7D-D0D2E446C4A1}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>DataStructures</RootNamespace>
-    <AssemblyName>DataStructures</AssemblyName>
+    <RootNamespace>TSP</RootNamespace>
+    <AssemblyName>TSP</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -40,9 +40,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Class\BFSProcessor.cs" />
+    <Compile Include="Class\DFSProcessor.cs" />
+    <Compile Include="Class\Node.cs" />
     <Compile Include="Class\PathProcessor.cs" />
     <Compile Include="Class\PermutationProcessor.cs" />
+    <Compile Include="Class\TreeBuilder.cs" />
     <Compile Include="Class\TSPProcessor.cs" />
+    <Compile Include="Interface\IBFSProcessor.cs" />
+    <Compile Include="Interface\IDFSProcessor.cs" />
     <Compile Include="Interface\IPathProcessor.cs" />
     <Compile Include="Interface\IPermutationProcessor.cs" />
     <Compile Include="Interface\ITSPProcessor.cs" />
