@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using TSP.Interface;
 using TSP.Struct;
@@ -9,9 +10,11 @@ namespace TSP.Class
     {
         #region Properties
 
-        public int[] ShortestPath;
+        public int[] ShortestPath { get; set; }
 
-        public double ShortestDist;
+        public double ShortestDist { get; set; }
+
+        public long CalculationTime { get; set; }
 
         private readonly ITSPReader _fileReader;
 
@@ -32,6 +35,8 @@ namespace TSP.Class
             _vertices = new List<Vertex>();
 
             _pathProcessor = new PathProcessor();
+
+            ShortestDist = Double.MaxValue;
         }
 
         #endregion
@@ -50,32 +55,58 @@ namespace TSP.Class
             DepthFirstSearch(_treeProcessor.TreeHeadNode, new List<int>());
 
             stopwatch.Stop();
-            var calculationTime = stopwatch.ElapsedMilliseconds;
+            CalculationTime = stopwatch.ElapsedMilliseconds;
         }
 
         private void DepthFirstSearch(Node parentNode, List<int> path)
         {
-            if (parentNode.ChildNodes.Count != 0)
+            List<int> localPath = path;
+
+            if (parentNode != null)
+            {
+                //look for all possible children
                 foreach (var childNode in parentNode.ChildNodes)
                 {
-                    path.Add(GetVertexIndex(parentNode.Vertex));
-
-                    DepthFirstSearch(childNode, path);
+                    DepthFirstSearch(childNode, localPath);
                 }
+            }
             else
-                _pathProcessor.Process(path.ToArray(), _vertices);
+            {
+                //now that I have a full path, process it and see if its the shortest path
+                double distance = _pathProcessor.Process(localPath.ToArray(), _vertices);
+
+                UpdateShortestPath(localPath.ToArray(), distance);
+
+                return;
+            }
+            
         }
 
-        private int GetVertexIndex(Vertex searchVertex) 
+        //input = vertex
+        //outpuut = index of said vertex in _vertices array
+        private int GetVertexIndex(Vertex searchVertex)
         {
-            var i = 0;
+            var i = 1;
 
-            do
+            foreach (var vertex in _vertices)
             {
+                if (searchVertex.Equals(vertex))
+                    break;
+
                 i++;
-            } while (!_vertices[i].Equals(searchVertex) && i < _vertices.Count - 1);
+            }
 
             return i;
+        }
+
+        //check to see if param distance is the shortest distance
+        private void UpdateShortestPath(int[] path, double distance)
+        {
+            if (distance < ShortestDist)
+            {
+                ShortestDist = distance;
+                ShortestPath = path;
+            }
         }
 
         #endregion

@@ -47,6 +47,7 @@ namespace TSP.Class
 
         #region Methods
 
+        //take in file and build tree and search it
         public void ProcessFile(byte[] file)
         {
             _vertices.Clear();
@@ -71,8 +72,10 @@ namespace TSP.Class
 
             while (nodeQueue.Count > 0)
             {
+                //dequeues parent
                 Node tempNode = nodeQueue.Dequeue();
 
+                //queues parents children
                 if (tempNode.ChildNodes.Count != 0)
                 {
                     foreach (var childNode in tempNode.ChildNodes)
@@ -82,6 +85,7 @@ namespace TSP.Class
                 }
                 else
                 {
+                    //now that we have reached the bottom of the tree, iterate up until you reach the head and calculate path and distance
                     int[] pathInts = tempNode.NodePathListToArray(tempNode.GetPath(), _vertices);
                     double distance = _pathProcessor.Process(pathInts, _vertices);
 

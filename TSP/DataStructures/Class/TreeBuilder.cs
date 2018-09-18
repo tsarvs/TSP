@@ -23,6 +23,7 @@ namespace TSP.Class
             {
                 TreeHeadNode = new Node(vertices[0]);
 
+                //run permutations and build tree
                 Permutation(vertices.Count);
             }
         }
