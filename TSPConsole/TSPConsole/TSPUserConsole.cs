@@ -1,8 +1,11 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Reflection;
 using TSP.Class;
 using TSP.Interface;
+using TSP.Struct;
 using TSPConsole.Properties;
 
 namespace TSPConsole
@@ -12,14 +15,19 @@ namespace TSPConsole
 
         #region Properties
 
-        private readonly ITSPProcessor _processor;
+        private readonly ITSPProcessor _tspProcessor;
+
+        private readonly IPathProcessor _pathProcessor;
 
         #endregion
+
         #region Constructor
 
         public TSPUserConsole()
         {
-            _processor = new TSPProcessor();
+            _tspProcessor = new TSPProcessor();
+
+            _pathProcessor = new PathProcessor();
         }
 
         #endregion
@@ -44,6 +52,7 @@ namespace TSPConsole
             Console.WriteLine("Welcome to the TSP Processor");
             Console.WriteLine("1) Project 1");
             Console.WriteLine("2) Project 2");
+            Console.WriteLine("3) Project 3");
             Console.WriteLine("0) Exit");
 
             string input = Console.ReadLine();
@@ -55,6 +64,9 @@ namespace TSPConsole
                     break;
                 case "2":
                     input = Lab2Menu();
+                    break;
+                case "3":
+                    input = Lab3Menu();
                     break;
                 case "0":
                     Console.WriteLine("Thank you for using the TSP Processor");
@@ -126,13 +138,14 @@ namespace TSPConsole
 
         private void BruteForceTSP(string file)
         {
-            _processor.ProcessFile(file);
+            _tspProcessor.ProcessFile(file);
 
-            Console.WriteLine("\nShortest Path: [" + string.Join(",", _processor.ShortestPath) + "]");
-            Console.WriteLine("Shortest Distance: " + _processor.ShortestDist);
-            Console.WriteLine("Calculation Time (ms): " + _processor.CalculationTime);
+            Console.WriteLine("\nShortest Path: [" + string.Join(",", _tspProcessor.ShortestPath) + "]");
+            Console.WriteLine("Shortest Distance: " + _tspProcessor.ShortestDist);
+            Console.WriteLine("Calculation Time (ms): " + _tspProcessor.CalculationTime);
 
-            Console.ReadKey();
+            Console.WriteLine("\nPress the enter button to continue. . .");
+            Console.ReadLine();
         }
 
         private string Lab2Menu()
@@ -155,16 +168,21 @@ namespace TSPConsole
                     Console.WriteLine("\nShortest Path: [" + string.Join(",", bfs.ShortestPath) + "]");
                     Console.WriteLine("Shortest Distance: " + bfs.ShortestDistance);
                     Console.WriteLine("Calculation Time (ms): " + bfs.CalculationTime);
+
+                    Console.WriteLine("\nPress the enter button to continue. . .");
                     Console.ReadLine();
                     break;
                 case "2":
-                    IDFSProcessor dfs = new DFSProcessor();
+                    Console.WriteLine("\nUnder Maintenance");
+                    //IDFSProcessor dfs = new DFSProcessor();
 
-                    dfs.ProcessFile(Resources._11PointDFSBFS);
+                    //dfs.ProcessFile(Resources._11PointDFSBFS);
 
-                    Console.WriteLine("\nShortest Path: [" + string.Join(",", dfs.ShortestPath) + "]");
-                    Console.WriteLine("Shortest Distance: " + dfs.ShortestDist);
-                    Console.WriteLine("Calculation Time (ms): " + dfs.CalculationTime);
+                    //Console.WriteLine("\nShortest Path: [" + string.Join(",", dfs.ShortestPath) + "]");
+                    //Console.WriteLine("Shortest Distance: " + dfs.ShortestDist);
+                    //Console.WriteLine("Calculation Time (ms): " + dfs.CalculationTime);
+
+                    Console.WriteLine("\nPress the enter button to continue. . .");
                     Console.ReadLine();
                     break;
                 case "0":
@@ -178,8 +196,63 @@ namespace TSPConsole
             return input;
         }
 
+        private string Lab3Menu()
+        {
+            Console.WriteLine("\nProject 2");
+            Console.WriteLine("1) Random30.tsp");
+            Console.WriteLine("2) Random40.tsp");
+            Console.WriteLine("0) Exit");
+
+            Console.WriteLine("Chose a file to run: ");
+            string input = Console.ReadLine();
+
+            switch (input)
+            {
+                case "1":
+                    GreedyAlgorithmTSP("TSPFile/Random30.tsp");
+                    break;
+                case "2":
+                    GreedyAlgorithmTSP("TSPFile/Random40.tsp");
+                    break;
+                case "0":
+                    Console.WriteLine("Thank you for using the TSP Processor!");
+                    break;
+                default:
+                    Console.WriteLine("You have provided incorrect input. Please try again.");
+                    break;
+            }
+
+            return input;
+        }
+
+        private void GreedyAlgorithmTSP(string fileName)
+        {
+            Stopwatch stopwatch = new Stopwatch();
+            
+
+            IGreedyTSPProcessor fileProcessor = new GreedyTSPProcessor(fileName);
+
+            stopwatch.Start();
+
+            List<Vertex> outputPath = fileProcessor.BuildPath();
+
+            stopwatch.Stop();
+
+            Console.WriteLine("\nOutput Path");
+            Console.WriteLine("--------------------------------");
+            Console.WriteLine("Calculation Time: " + stopwatch.ElapsedMilliseconds + " ms");
+            Console.WriteLine("Distance: " + _pathProcessor.Process(outputPath) + " units");
+            Console.WriteLine("--------------------------------");
+
+            foreach (var vertex in outputPath)
+            {
+                Console.WriteLine("\t("+vertex.x+", "+vertex.y+")");
+            }
 
 
+            Console.WriteLine("\nPress the enter button to continue. . .");
+            Console.ReadLine();
+        }
         #endregion
     }
 }

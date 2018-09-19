@@ -11,6 +11,8 @@ namespace TSP.Interface
     {
         double Process(int[] pathArray, List<Vertex> vertices);
 
+        double Process(List<Vertex> pathList);
+
         double CalculateDistance(Vertex pointA, Vertex pointB);
     }
 }
