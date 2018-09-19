@@ -16,13 +16,14 @@ namespace TSP.Class
         public int FindIndexToInsert(Vertex vertexToInsert, List<Vertex> pathList)
         {
             var index = 0;
+            double distance = 0;
             double shortestDistance = Double.MaxValue;
 
             //# of loops = # of paths = pathList.Count - 1
             for (int i = 0; i<pathList.Count - 1; i++)
             {
                 //getDistance from vertex to path
-                double distance = GetDistanceToPath(vertexToInsert, pathList[i], pathList[i + 1]);
+                distance = GetDistanceToPath(vertexToInsert, pathList[i], pathList[i + 1]);
 
                 if (distance < shortestDistance)
                 {
@@ -30,6 +31,15 @@ namespace TSP.Class
                     index = i;
                 }
             }
+
+            //check the path that closes the loop
+            distance = GetDistanceToPath(vertexToInsert, pathList[pathList.Count - 1], pathList[0]);
+            if (distance < shortestDistance)
+            {
+                shortestDistance = distance;
+                index = pathList.Count;
+            }
+
 
             return index;
         }
