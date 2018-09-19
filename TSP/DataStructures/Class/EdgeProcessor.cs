@@ -49,6 +49,8 @@ namespace TSP.Class
         {
             Vertex intersect = GetIntersectionVertex(startingVertex, pathPointA, pathPointB);
 
+            //todo: check to see if intersect is on the path, if not find closest vertex and use that as vertex
+
             return GetPathLength(startingVertex, intersect);
         }
 
