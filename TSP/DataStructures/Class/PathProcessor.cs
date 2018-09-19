@@ -8,7 +8,7 @@ using TSP.Struct;
 
 namespace TSP.Class
 {
-    class PathProcessor : IPathProcessor
+    public class PathProcessor : IPathProcessor
     {
         #region Properties
         #endregion 
@@ -32,6 +32,22 @@ namespace TSP.Class
             //finish path loop and calculate distance from last point back to the first
             distance += CalculateDistance(vertices[pathArray[i] - 1], vertices[pathArray[0] - 1]);
             
+
+            return distance;
+        }
+
+        public double Process(List<Vertex> pathList)
+        {
+            double distance = 0;
+
+            //# of loops = # of paths = pathList.Count - 1
+            for (int i = 0; i < pathList.Count - 1; i++)
+            {
+                distance += CalculateDistance(pathList[i], pathList[i + 1]);
+            }
+
+            //close the path loop and calculate distance from last path to first path
+            distance += CalculateDistance(pathList[pathList.Count - 1], pathList[0]);
 
             return distance;
         }

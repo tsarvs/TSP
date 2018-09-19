@@ -42,6 +42,8 @@
   <ItemGroup>
     <Compile Include="Class\BFSProcessor.cs" />
     <Compile Include="Class\DFSProcessor.cs" />
+    <Compile Include="Class\EdgeProcessor.cs" />
+    <Compile Include="Class\GreedyTSPProcessor.cs" />
     <Compile Include="Class\Node.cs" />
     <Compile Include="Class\PathProcessor.cs" />
     <Compile Include="Class\PermutationProcessor.cs" />
@@ -49,6 +51,8 @@
     <Compile Include="Class\TSPProcessor.cs" />
     <Compile Include="Interface\IBFSProcessor.cs" />
     <Compile Include="Interface\IDFSProcessor.cs" />
+    <Compile Include="Interface\IEdgeProcessor.cs" />
+    <Compile Include="Interface\IGreedyTSPProcessor.cs" />
     <Compile Include="Interface\IPathProcessor.cs" />
     <Compile Include="Interface\IPermutationProcessor.cs" />
     <Compile Include="Interface\ITSPProcessor.cs" />
