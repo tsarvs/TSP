@@ -41,15 +41,24 @@ namespace TSP.Class
 
             foreach (var vertex in _vertices)
             {
+                //add the first two vertices to pathList
                 if (pathList.Count < 2)
                 {
                     pathList.Add(vertex);
                 }
                 else
                 {
-                    var index = _edgeProcessor.FindIndexToInsert(vertex, pathList) + 1;
+                    var index = _edgeProcessor.FindIndexToInsert(vertex, pathList);
+
+                    if (index == pathList.Count)
+                    {
+                        pathList.Add(vertex);
+                    }
+                    else
+                    {
+                        pathList.Insert(index + 1, vertex);
+                    }
                     
-                    pathList.Insert(index, vertex);
                 }
             }
 
