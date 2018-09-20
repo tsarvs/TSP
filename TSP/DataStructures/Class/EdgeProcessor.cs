@@ -50,8 +50,115 @@ namespace TSP.Class
             Vertex intersect = GetIntersectionVertex(startingVertex, pathPointA, pathPointB);
 
             //todo: check to see if intersect is on the path, if not find closest vertex and use that as intersect
+            if (CheckOnPath(intersect, pathPointA, pathPointB) == false)
+            {
+                //find closest vertex and set intersect = that
+                double distanceA = GetPathLength(intersect, pathPointA), 
+                       distanceB = GetPathLength(intersect, pathPointB);
+
+                if (distanceA < distanceB)
+                {
+                    intersect = pathPointA;
+                }
+                else
+                {
+                    intersect = pathPointB;
+                }
+            }
 
             return GetPathLength(startingVertex, intersect);
+        }
+
+        //check to se is the vertexToCheck is within the domain and range of the path created by pathPointA and pathPointB
+        private bool CheckOnPath(Vertex vertexToCheck, Vertex pathPointA, Vertex pathPointB)
+        {
+            bool isOnPath;
+
+            if (pathPointA.x < pathPointB.x)
+            {
+                //ex: y = x
+                if (pathPointA.y < pathPointB.y)
+                {
+                    if (vertexToCheck.x >= pathPointA.x && vertexToCheck.x <= pathPointB.x)
+                    {
+                        if (vertexToCheck.y >= pathPointA.y && vertexToCheck.y <= pathPointB.y)
+                        {
+                            isOnPath = true;
+                        }
+                        else
+                        {
+                            isOnPath = false;
+                        }
+                    }
+                    else
+                    {
+                        isOnPath = false;
+                    }
+
+                }
+                //ex: y = -x
+                else
+                {
+                    if (vertexToCheck.x >= pathPointA.x && vertexToCheck.x <= pathPointB.x)
+                    {
+                        if (vertexToCheck.y <= pathPointA.y && vertexToCheck.y >= pathPointB.y)
+                        {
+                            isOnPath = true;
+                        }
+                        else
+                        {
+                            isOnPath = false;
+                        }
+                    }
+                    else
+                    {
+                        isOnPath = false;
+                    }
+                }
+            }
+            else
+            {
+                //ex: y = -x
+                if (pathPointA.y < pathPointB.y)
+                {
+                    if (vertexToCheck.x <= pathPointA.x && vertexToCheck.x >= pathPointB.x)
+                    {
+                        if (vertexToCheck.y >= pathPointA.y && vertexToCheck.y <= pathPointB.y)
+                        {
+                            isOnPath = true;
+                        }
+                        else
+                        {
+                            isOnPath = false;
+                        }
+                    }
+                    else
+                    {
+                        isOnPath = false;
+                    }
+                }
+                //ex: y = x
+                else
+                {
+                    if (vertexToCheck.x <= pathPointA.x && vertexToCheck.x >= pathPointB.x)
+                    {
+                        if (vertexToCheck.y <= pathPointA.y && vertexToCheck.y >= pathPointB.y)
+                        {
+                            isOnPath = true;
+                        }
+                        else
+                        {
+                            isOnPath = false;
+                        }
+                    }
+                    else
+                    {
+                        isOnPath = false;
+                    }
+                }
+            }
+
+            return isOnPath;
         }
 
         private double GetPathLength(Vertex pathPointA, Vertex pathPointB)
