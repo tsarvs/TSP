@@ -6,9 +6,11 @@ namespace TSPConsole
     {
         private static void Main(string[] args)
         {
-            TSPUserConsole console = new TSPUserConsole();
+            //TSPUserConsole console = new TSPUserConsole();
+            //console.Run();
 
-            console.Run();
+            TSPGUI form = new TSPGUI();
+            form.ShowDialog();
         }
     }
 }

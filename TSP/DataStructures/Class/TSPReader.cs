@@ -10,7 +10,7 @@ using TSP.Struct;
 
 namespace TSP.Class
 {
-    internal class TSPReader : ITSPReader
+    public class TSPReader : ITSPReader
     {
         #region Properties
 
